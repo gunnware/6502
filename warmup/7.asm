@@ -10,6 +10,8 @@ Start:
     inc $80     ; Increment the value inside a (zero page) memory position $80
     dec $80     ; Decrement the value inside a (zero page) memory position $80
 
+    jmp Start
+
     org $FFFC   ; End the ROM by adding required values to memory position $FFFC
     .word Start ; Put 2 bytes with the reset address at memory position $FFFC
     .word Start ; Put 2 bytes with the break address at memory position $FFFE

@@ -3,13 +3,17 @@
     org $F000   ; Define the origin of the ROM code at memory address $F000
 
 Start:
-    lda #$A        ; Load the A register with the hexadecimal value $A
-    ldx #%11111111 ; Load the X register with the binary value %11111111
-    sta $80        ; Store the value in the A register into memory address $80
-    stx $81        ; Store the value in the X register into memory address $81
-     
+    cld
+    ldy #$A     ; Load Y with 11
+
+Loop:
+    tya         ; Transfer Y to A
+    sta $80,Y   ; Store the value in A inside memory position $80+Y
+    dey         ; Decrement Y
+    bpl Loop    ; Branch back to "Loop" until we are done
+
     jmp Start
-       
+
     org $FFFC   ; End the ROM by adding required values to memory position $FFFC
     .word Start ; Put 2 bytes with the reset address at memory position $FFFC
     .word Start ; Put 2 bytes with the break address at memory position $FFFE

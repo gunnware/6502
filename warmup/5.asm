@@ -15,7 +15,9 @@ Start:
     clc
     adc $81     ; Add to A the value inside RAM address $81; A should contain (#10 + $A + %1010) = #30 (or $1E in hexadecimal)
     sta $82     ; Store the value of A into RAM position $82
-
+    
+    jmp Start
+    
     org $FFFC   ; End the ROM by adding required values to memory position $FFFC
     .word Start ; Put 2 bytes with the reset address at memory position $FFFC
     .word Start ; Put 2 bytes with the break address at memory position $FFFE
