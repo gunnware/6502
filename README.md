@@ -1,1 +1,1 @@
-# 6502 introductory stuff
+# 6502 stuff
