@@ -3,7 +3,7 @@
     org $F000       ; Start this code at F000h
 FibSeq = $80        ; Sequence starts here
 FibMax = 233        ; Max fibonacci number we need
-    
+
 Start:  
     cld             ; Make sure we are not in BCD mode
     ldy #0          ; Reset Y
@@ -15,7 +15,7 @@ Clear:
     bne Clear       ; Has X rolled over to 0?  If not go back to Clear
     nop             ; Do nothing
     nop             ; Do nothing
-        
+
 Seed:   
     ldx #0          ; Load X with 0
     stx FibSeq,Y    ; Store X into offset
@@ -31,14 +31,13 @@ Loop:
     iny             ; Increment Y
     sta FibSeq,Y    ; Store A in offset
     dey             ; Decrement Y (go back to our second number) for the next round
-    cmp #FibMax     ; Are we nearing the end of what's possible with 8 bits?
+    cmp #FibMax     ; Are we at the end of what's possible with 8 bits?
     beq Done        ; If so, jump to Done
     jmp Loop        ; Otherwise, do another round
-        
+
 Done:   
-    jmp Done    
-    
+    jmp Done        ; Wait in a loop forever
+
     org $FFFC       ; End the ROM by adding required values to memory position $FFFC
     .word Start     ; Put 2 bytes with the reset address at memory position $FFFC
     .word Start     ; Put 2 bytes with the break address at memory position $FFFE
-    
